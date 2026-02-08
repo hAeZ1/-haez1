@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Identity V 第五人格 Hunter Skill Tracker (hAeZ1)</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="top-controls">
+                <!-- Blocked Status (Top Left) -->
+                <div id="blocked-status" class="blocked-container hidden">
+                    <span class="blocked-label">【暗号機封鎖】</span>
+                    <span id="blocked-timer" class="blocked-timer">0</span>
+                </div>
+
+                <!-- Match Timer (Prominent) -->
+                <div id="match-timer-container" class="match-timer-container">
+                    <span id="match-timer">0:00</span>
+                </div>
+
+                <!-- Endgame Status (Center/Prominent) - Hidden by default -->
+                <div id="endgame-status" class="endgame-container hidden">
+                    <!-- Injected by JS -->
+                </div>
+
+                <!-- Hunter Selector (Top Center/Right) -->
+                <div class="hunter-selector">
+                    <button id="hunter-prev" class="nav-btn">&lt;</button>
+                    <select id="hunter-select">
+                        <!-- Populated by JS -->
+                    </select>
+                    <button id="hunter-next" class="nav-btn">&gt;</button>
+                </div>
+            </div>
+
+            <button id="start-btn" class="start-btn">
+                START
+                <span class="sub-text">※画面が割れてカメラが回り始める瞬間にタップ</span>
+            </button>
+        </header>
+
+        <!-- Hunter Skill Area -->
+        <div id="hunter-skill-area" class="hunter-skill-area">
+            <!-- Injected by JS -->
+        </div>
+
+        <div class="status-bar" id="status-bar">待機中</div>
+
+        <!-- Traits Section -->
+        <div class="section-title">特質</div>
+        <div class="grid-container traits-grid" id="grid-traits">
+            <!-- Traits injected here -->
+        </div>
+
+        <!-- Others Section -->
+        <div class="section-title">その他（人格・システム）</div>
+        <div class="grid-container others-grid" id="grid-others">
+            <!-- Others injected here -->
+        </div>
+    </div>
+
+    <!-- SVG Definitions -->
+    <svg style="display: none;">
+        d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76
+        0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+        </symbol>
+
+        <!-- Trump Card: Cards in Pentagon -->
+        <symbol id="icon-trump" viewBox="0 0 24 24">
+            <use href="#pentagon-bg" />
+            <path fill="#ddd" transform="translate(5,5) scale(0.6)"
+                d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm-8 12c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4z" />
+        </symbol>
+
+        <!-- Accelerate: Gear in Pentagon -->
+        <symbol id="icon-accelerate" viewBox="0 0 24 24">
+            <use href="#pentagon-bg" />
+            <path fill="#ddd" transform="translate(5,5) scale(0.6)"
+                d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z" />
+        </symbol>
+
+        <!-- Hunter Skill: Generic -->
+        <symbol id="icon-hunter-skill" viewBox="0 0 24 24">
+            <use href="#pentagon-bg" />
+            <path fill="#ddd" transform="translate(5,5) scale(0.6)" d="M12 2L2 12L12 22L22 12L12 2Z" />
+        </symbol>
+
+        <!-- Mirror -->
+        <symbol id="icon-mirror" viewBox="0 0 24 24">
+            <use href="#pentagon-bg" />
+            <path fill="#ddd" transform="translate(6,4) scale(0.7)"
+                d="M16 4H8v16h8V4zm-4 8c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z" />
+        </symbol>
+        </defs>
+    </svg>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

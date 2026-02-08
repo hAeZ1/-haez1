@@ -1,0 +1,545 @@
+:root {
+    --bg-color: #ffffff;
+    --card-normal: #4fa3f7;
+    --card-warning: #f7c600;
+    --card-finished: #444;
+    --text-color: #000;
+    --text-on-dark: #eee;
+    --blocked-bg: #ff9800;
+    /* Orange for blocked */
+}
+
+body {
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-family: 'Impact', sans-serif;
+    margin: 0;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.container {
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Header & Controls */
+header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.top-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+    gap: 10px;
+    color: var(--text-on-dark);
+}
+
+.match-timer-container {
+    background: #000;
+    color: #fff;
+    padding: 5px 15px;
+    border-radius: 4px;
+    border: 1px solid #666;
+    font-family: monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+    min-width: 80px;
+    text-align: center;
+    order: 2;
+    /* Position adjustments if needed */
+}
+
+.hunter-selector {
+    display: flex;
+    gap: 5px;
+    align-items: center;
+}
+
+.hunter-selector select {
+    font-size: 1.2rem;
+    padding: 5px;
+    background: #555;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+}
+
+.nav-btn {
+    background: var(--card-normal);
+    border: none;
+    font-size: 1.2rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Blocked UI */
+.blocked-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--blocked-bg);
+    padding: 5px 15px;
+    border-radius: 4px;
+    color: #000;
+    font-weight: bold;
+    animation: flash 1s infinite alternate;
+}
+
+.blocked-container.hidden {
+    display: none;
+}
+
+.blocked-timer {
+    font-size: 1.5rem;
+}
+
+@keyframes flash {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.8;
+    }
+}
+
+/* Start Button */
+.start-btn {
+    width: 100%;
+    background-color: var(--card-normal);
+    padding: 15px 0;
+    font-size: 2rem;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.start-btn.waiting {
+    background-color: var(--card-warning);
+    animation: pulse 0.5s infinite alternate;
+}
+
+.start-btn.running {
+    background-color: #333;
+    color: #888;
+}
+
+.sub-text {
+    display: block;
+    font-size: 0.8rem;
+    font-weight: normal;
+    font-family: sans-serif;
+    margin-top: 5px;
+}
+
+/* Popped Button */
+.start-btn.popped-btn {
+    background-color: #9c27b0;
+    /* Purple for "Detention" vibe */
+    color: #fff;
+    animation: none;
+}
+
+.start-btn.finished-btn {
+    background-color: #333;
+    color: #888;
+}
+
+/* Hunter Skill Area (Top Center) */
+.hunter-skill-area {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* Gap between multiple skills */
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    /* Allow wrapping if many skills */
+}
+
+.hunter-skill-area .tracker-card {
+    width: 120px;
+    /* Fixed width for skills */
+    /* Fixed width for skills */
+    height: 100px;
+    cursor: pointer;
+    /* Clickable */
+}
+
+.hunter-skill-area .tracker-card:active {
+    transform: scale(0.98);
+}
+
+/* Section Dividers */
+.section-title {
+    color: var(--text-on-dark);
+    font-family: sans-serif;
+    font-size: 0.9rem;
+    margin-top: 5px;
+    border-bottom: 1px solid #555;
+    padding-bottom: 2px;
+}
+
+/* Traits Grid - 2 Columns (To allow span/fill logic logic) */
+.traits-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* Switch to 2 columns for the 5-item layout */
+    gap: 8px;
+}
+
+/* Others Grid - 3 Columns */
+.others-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+}
+
+/* Spans */
+.tracker-card.card-span-2 {
+    grid-column: span 2;
+}
+
+/* Warp/Blink Frame Size (Tall) */
+.tracker-card.card-large {
+    grid-column: span 1;
+    height: 140px;
+    /* Tall vertical */
+}
+
+/* Orange Background for Warp/Blink */
+.tracker-card.card-orange {
+    background: #e65100;
+    /* Dark Orange */
+    border: 2px solid #ff9800;
+}
+
+.tracker-card.card-orange .timer {
+    color: #fff;
+    text-shadow: 0 0 5px #000;
+}
+
+/* Others Background */
+.others-grid .tracker-card {
+    background-color: #3d4c53;
+}
+
+/* Group Card */
+.tracker-card.group-card {
+    height: 100px;
+    /* Standard */
+}
+
+/* Mobile Adjustments */
+@media (max-width: 480px) {
+    body {
+        padding: 5px;
+    }
+
+    .tracker-card {
+        min-width: 0;
+        /* Allow shrinking */
+    }
+
+    .label {
+        font-size: 0.7rem;
+    }
+
+    .timer {
+        font-size: 1.5rem;
+    }
+
+    .tracker-card.card-large .timer {
+        font-size: 3rem;
+    }
+}
+
+/* Paused/Ready State (Stopped at initial) */
+.tracker-card.paused {
+    border: 3px solid #fff;
+    /* White border emphasis */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+/* Finished State (Contrast) */
+.tracker-card.finished {
+    background-color: #000;
+    border: 3px solid #00ff00;
+}
+
+/* Endgame Container at Top */
+.endgame-container {
+    flex: 2;
+    /* Take space in top controls */
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.endgame-card {
+    background: #000;
+    border: 2px solid #ff5252;
+    color: #ff5252;
+    padding: 5px 15px;
+    border-radius: 4px;
+    text-align: center;
+    min-width: 100px;
+}
+
+.endgame-card .timer {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+.endgame-card .label {
+    font-size: 0.8rem;
+    color: #fff;
+}
+
+.tracker-card {
+    background-color: var(--card-normal);
+    border-radius: 4px;
+    padding: 5px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.2s;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+.tracker-card.card-large {
+    grid-column: span 1;
+    /* Default span */
+}
+
+/* Large Icon logic */
+.tracker-card svg {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    width: 48px;
+    height: 48px;
+    opacity: 0.9;
+    color: var(--text-color);
+}
+
+.tracker-card svg.icon-large {
+    width: 72px;
+    height: 72px;
+    bottom: -5px;
+    right: -5px;
+    opacity: 0.3;
+    /* Blend more if large */
+}
+
+.tracker-card .timer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3.5rem;
+    z-index: 2;
+}
+
+.tracker-card .label {
+    position: absolute;
+    top: 5px;
+    left: 8px;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+    font-weight: bold;
+    z-index: 2;
+}
+
+/* States */
+.tracker-card.warning {
+    background-color: var(--card-warning);
+}
+
+/* Finished State - High Visibility */
+.tracker-card.finished {
+    background-color: #000;
+    /* Deep black background */
+    border: 3px solid #00ff00;
+    /* Bright Neon Green Border */
+    cursor: pointer;
+}
+
+.tracker-card.finished .label {
+    color: #fff;
+}
+
+.tracker-card.finished .timer {
+    color: #00ff00;
+    /* Neon Green Text */
+    text-shadow: 0 0 10px #00ff00;
+    font-weight: bold;
+}
+
+.tracker-card.finished svg {
+    opacity: 0.5;
+    fill: #00ff00;
+    /* Tint icon green */
+}
+
+/* Group Card (Split) */
+.tracker-card.group-card {
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    gap: 1px;
+    background: #444;
+    /* Separator color */
+}
+
+.group-card .sub-card {
+    flex: 1;
+    position: relative;
+    background-color: var(--card-normal);
+    overflow: hidden;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.group-card .sub-card:hover {
+    filter: brightness(1.1);
+}
+
+.group-card .sub-card svg {
+    width: 32px;
+    height: 32px;
+    bottom: 2px;
+    right: 2px;
+}
+
+.group-card .sub-card .timer {
+    font-size: 2rem;
+}
+
+.group-card .sub-card .label {
+    font-size: 0.7rem;
+}
+
+/* Square Card (Trump) */
+.tracker-card.card-square {
+    border-radius: 0;
+    /* Square corners */
+    border: 2px solid #9c27b0;
+    /* Purple border default */
+}
+
+.tracker-card.card-square svg {
+    opacity: 0.7;
+    /* distinct look */
+}
+
+/* Large Card Emphasis (Warp/Blink) */
+.tracker-card.card-large {
+    grid-column: span 1;
+    /* Keep same grid span, but visual emphasis */
+    background: linear-gradient(135deg, var(--card-normal) 0%, #2979ff 100%);
+    border: 2px solid #fff;
+    /* White border to pop */
+}
+
+.tracker-card.card-large .timer {
+    font-size: 4rem;
+    /* Bigger text */
+    font-weight: bold;
+}
+
+.tracker-card.card-large svg.icon-large {
+    width: 90px;
+    /* Even bigger icon */
+    height: 90px;
+    opacity: 0.4;
+}
+
+/* Sub-card states */
+.sub-card.active {
+    /* inherits nothing special unless styled */
+}
+
+.sub-card.warning {
+    background-color: var(--card-warning) !important;
+}
+
+.sub-card.finished {
+    background-color: #000 !important;
+    border: 2px solid #00ff00;
+}
+
+.sub-card.finished .timer {
+    color: #00ff00;
+}
+
+/* Trump Card Logic Styles */
+.trump-mode-active .tracker-card {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.trump-mode-active .tracker-card.selectable {
+    opacity: 1;
+    pointer-events: auto;
+    border: 2px dashed #9c27b0;
+    cursor: pointer;
+    background: #444;
+}
+
+.card-trump.ready {
+    border: 4px solid #9c27b0 !important;
+    /* Emphasize ready Trump Card */
+    box-shadow: 0 0 15px #9c27b0;
+    animation: pulse-purple 1s infinite alternate;
+}
+
+@keyframes pulse-purple {
+    from {
+        box-shadow: 0 0 5px #9c27b0;
+    }
+
+    to {
+        box-shadow: 0 0 20px #9c27b0;
+        border-color: #e1bee7;
+    }
+}
+
+/* Timer Visibility Logic */
+.tracker-card .timer {
+    color: #666;
+    /* Default dimmed - gray */
+    transition: color 0.3s;
+}
+
+.tracker-card.hot .timer {
+    color: #fff;
+    /* High visibility for <= 10s */
+    text-shadow: 0 0 5px rgba(0, 0, 0, 0.8);
+}
+
+.tracker-card.warning .timer {
+    color: #000;
+    /* Black on Yellow for warning */
+}
+
+.tracker-card.finished .timer {
+    color: #444;
+}
